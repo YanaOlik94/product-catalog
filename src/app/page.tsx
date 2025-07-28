@@ -1,7 +1,10 @@
-import Image from "next/image";
+'use client';
+import { Catalog } from "./components/catalog/Catalog";
 
 export default function Home() {
   return (
-      <div>Home page</div>
+    <main>
+      <Catalog />
+    </main>
   );
 }

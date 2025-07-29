@@ -18,7 +18,7 @@ export const ProductItem = ({ product }: ProductItemProps): JSX.Element => {
     <div
       tabIndex={0}
       className='
-        my-1 w-[300px] p-5 flex flex-col rounded-lg shadow-md cursor-pointer 
+        w-[300px] p-5 flex flex-col rounded-lg shadow-md cursor-pointer
         border border-[var(--text-gray)] hover:border-[var(--btn-hover)]
         transition-colors duration-200'
     >

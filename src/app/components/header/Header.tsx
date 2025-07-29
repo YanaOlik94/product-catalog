@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
         <Link href='/'>
           <Image
             src={logo}
-            alt='Logo DoGood'
+            alt='Logo'
             className='w-[70px] h-auto'
             priority
           />

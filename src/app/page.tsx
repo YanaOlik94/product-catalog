@@ -1,5 +1,5 @@
 'use client';
-import { Catalog } from "./components/catalog/Catalog";
+import { Catalog } from "./catalog/Catalog";
 
 export default function Home() {
   return (

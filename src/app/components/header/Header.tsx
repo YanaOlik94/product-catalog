@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../../assets/logo.jpg';
+import logo from '../../assets/logo.png';
 
 export const Header: React.FC = () => {
   return (
@@ -12,11 +12,14 @@ export const Header: React.FC = () => {
           <Image
             src={logo}
             alt='Logo'
-            className='w-[70px] h-auto'
+            className='w-[70px] h-auto p-1 ml-2 border-box'
             priority
           />
         </Link>
-        <h2 className='text-center w-5/6 text-3xl'>Каталог</h2>
+        <div className='flex items-center gap-4 ml-6'>
+          <Link href='/'>Каталог</Link>
+          <Link href='/'>Корзина</Link>
+        </div>
       </div>
     </header>
   );

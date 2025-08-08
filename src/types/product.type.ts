@@ -1,6 +1,6 @@
 
 export const enum CategoryEnum {
-  Tea = 'tea',
+  MensClothing = 'men\'s clothing',
   Coffee = 'coffee',
   Milk = 'milk',
   Confectionery = 'confectionery',
@@ -12,12 +12,17 @@ export type PriceFilter = { min: number; max: number | null };
 export type SortBy = 'name' | 'price' | 'rating';
 
 export interface Product {
-  name: string;
+  id: number,
+  title: string;
   price: string | number;
-  rating: number;
-  category: CategoryEnum[];
-  image: string
-}
+  description: string;
+  rating: {
+    rate: number,
+    count: number
+  };
+  category: string;
+  image?: string
+};
 
 export interface ExtendedProductProps extends Product {
   isSelected?: boolean;

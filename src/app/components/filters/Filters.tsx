@@ -102,7 +102,7 @@ export const Filters: FC<Props> = ({ products, className }): JSX.Element => {
                             const parsed = JSON.parse(val) as PriceFilter;
                             setPriceFilter(parsed);
                         } catch {
-                            removePriceFilter(); // fallback
+                            removePriceFilter();
                         }
                     }}
                     className="w-full border px-2 py-1 rounded"

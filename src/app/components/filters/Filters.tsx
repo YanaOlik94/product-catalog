@@ -54,7 +54,7 @@ export const Filters: FC<Props> = ({ products, className }): JSX.Element => {
   };
 
     return (
-        <div className="p-4 border rounded-md w-full max-w-[300px] space-y-4">
+        <div className="p-4  h-fit border rounded-md w-full max-w-[300px] space-y-4">
             {/* Пошук */}
             <div>
                 <label className="block mb-1 font-semibold">Пошук</label>

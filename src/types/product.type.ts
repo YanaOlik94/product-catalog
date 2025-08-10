@@ -1,9 +1,9 @@
 
 export const enum CategoryEnum {
   MensClothing = 'men\'s clothing',
-  Coffee = 'coffee',
-  Milk = 'milk',
-  Confectionery = 'confectionery',
+  WomensClothing = 'women\'s clothing',
+  Jewelery = 'jewelery',
+  Electronics = 'electronics',
   Default = 'default',
 }
 

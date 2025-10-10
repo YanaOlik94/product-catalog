@@ -1,79 +1,84 @@
 'use client';
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductItem } from "../product-item/ProductItem";
+import { ProductItem } from '../product-item/ProductItem';
 import { Product } from '@/types/product.type';
-import { createSelector } from 'reselect';
 import { CSSTransition } from 'react-transition-group';
-import Spinner from "@/app/components/spinner/spinner";
-import {fetchProducts} from "@/app/components/product-list/productsSlice";
-import {categoryImages} from "@/app/assets/imagesMap";
+import Spinner from '@/app/components/spinner/spinner';
+import { fetchProducts } from '@/app/components/product-list/productsSlice';
+import { categoryImages } from '@/app/assets/imagesMap';
+import { RootState } from '@/app/store'; 
 
-type Props = {
-  products: Product[];
-};
+export const ProductList: React.FC = () => {
+  const dispatch = useDispatch();
 
-export const ProductList: React.FC<Props> = () => {
+  const products = useSelector((state: RootState) => state.products.products);
+  const productsLoadingStatus = useSelector(
+    (state: RootState) => state.products.productsLoadingStatus
+  );
 
-    const productsSelector = createSelector(
-        (state) => state.products.products,
-        (products: Product[]) => {
-            return products;
-        }
-    );
+  const { searchQuery, chosenCategories, priceFilter, sortBy } = useSelector(
+    (state: RootState) => state.filters
+  );
 
-    const productsList = useSelector(productsSelector);
-    const productsLoadingStatus = useSelector((state) => state.products.productsLoadingStatus);
-    const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+    // eslint-disable-next-line
+  }, []);
 
-    useEffect(() => {
-        dispatch(fetchProducts());
-        // eslint-disable-next-line
-    }, []);
+  if (productsLoadingStatus) {
+    return <Spinner />;
+  }
 
-    if (productsLoadingStatus === 'loading') {
-        return <Spinner />;
-    } else if (productsLoadingStatus === 'error') {
-        return <h5 className='text-center mt-5'>Помилка загрузки</h5>;
+  //  Фільтруємо продукти
+  const filteredProducts = products
+    .filter((product: Product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((product: Product) => {
+      if (!chosenCategories.length || chosenCategories.includes('all'))
+        return true;
+
+      return chosenCategories.includes(product.category);
+    })
+    .filter((product: Product) => {
+      if (!priceFilter) return true;
+      const { min, max } = priceFilter;
+      return product.price >= min && (max === null || product.price <= max);
+    })
+    .sort((a: Product, b: Product) => {
+      if (sortBy === 'price') return a.price - b.price;
+      if (sortBy === 'rating') return b.rating.rate - a.rating.rate;
+      return a.title.localeCompare(b.title);
+    });
+
+  // Рендеримо продукти
+  const renderProductsList = (arr: Product[]) => {
+    if (arr.length === 0) {
+      return (
+        <CSSTransition timeout={0} >
+          <h5 className='text-center mt-5'>Продуктів немає</h5>
+        </CSSTransition>
+      );
     }
 
-    const renderProductsList = (arr) => {
-        if (arr.length === 0) {
-            return (
-                <CSSTransition timeout={0} classNames='hero'>
-                    <h5 className='text-center mt-5'>Продуктів немає</h5>
-                </CSSTransition>
-            );
-        }
+    return arr.map(({ id, ...props }) => (
+      <CSSTransition key={id} timeout={500}>
+          <ProductItem
+            product={{ id, ...props }}
+          />
+      </CSSTransition>
+    ));
+  };
 
-        return arr.map(({ id, ...props }) => {
-            return (
-                <CSSTransition key={id} timeout={500} classNames='hero'>
-                    <ProductItem product={{ ...props }}
-                                 image={categoryImages[props.category]}/>
-                </CSSTransition>
-            );
-        });
-    };
+  const elements = renderProductsList(filteredProducts);
 
-    const elements = renderProductsList(productsList);
-
-    return (
-     <div className='flex justify-center gap-8  ml-[50px]'>
-       <div className='ml-[20px] grid grid-cols-3 gap-4 justify-items-center'>
-           {elements}
-       </div>
-     </div>
-   );
-
- };
-
-
-
-
-
-
-
-
+  return (
+    <div className='col-span-3 flex justify-center gap-8 ml-[50px]'>
+      <div className='ml-[20px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {elements}
+      </div>
+    </div>
+  );
+};

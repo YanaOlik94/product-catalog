@@ -4,7 +4,7 @@ export const enum CategoryEnum {
   WomensClothing = 'women\'s clothing',
   Jewelery = 'jewelery',
   Electronics = 'electronics',
-  Default = 'default',
+  All = 'all',
 }
 
 export type CategoryFilter = CategoryEnum | 'all' | null;
@@ -14,14 +14,14 @@ export type SortBy = 'name' | 'price' | 'rating';
 export interface Product {
   id: number,
   title: string;
-  price: string | number;
+  price: number;
   description: string;
   rating: {
     rate: number,
     count: number
   };
   category: string;
-  image?: string
+  image: string
 };
 
 export interface ExtendedProductProps extends Product {

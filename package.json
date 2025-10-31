@@ -2,11 +2,14 @@
   "name": "product-catalogue",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://YanaOlik94.github.io/product-catalog",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
@@ -29,6 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.4",
+    "gh-pages": "^6.3.0",
     "sass": "^1.93.2",
     "tailwindcss": "^4",
     "typescript": "^5.9.2"

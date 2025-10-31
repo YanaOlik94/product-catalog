@@ -5,9 +5,9 @@ import Image from 'next/image';
 import  logo  from '../../assets/logo.svg';
 import { CartIcon } from '../cart-icon/CartIcon';
 
-export const Header: React.FC = (Props) => {
+export const Header: React.FC = () => {
   return (
-    <header className='z-[9990] fixed mx-auto bg-header-bg w-full h-[80px] lg:h-[72px] shadow-xl overflow-visible'>
+    <header className='z-[9990] fixed mx-auto bg-white w-full h-[80px] lg:h-[72px] shadow-xl overflow-visible'>
       <div className='flex items-center py-4 px-4 h-[72px]'>
         <Link href='/'>
           <Image

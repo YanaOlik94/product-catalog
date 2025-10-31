@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { useHttp } from '../../hooks/http';
-import { Product } from '@/types/product.type';
+import { Product } from '@/app/types/product.type';
 
 interface ProductState {
   product: Product;
@@ -12,13 +12,14 @@ const initialState: ProductState = {
   product: {
     id: 0,
     title: '',
-    price: '',
+    price: 0,
     description: '',
     rating: {
       rate: 0,
       count: 0,
     },
     category: '',
+    image: ''
   },
   productLoadingStatus: false,
   error: null,

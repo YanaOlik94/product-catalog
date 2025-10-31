@@ -46,7 +46,7 @@ export const ProductItem = ({ product }: ProductItemProps): JSX.Element => {
       <h4 className='mb-[10px] mt-[10px] min-h-[60px] text-[16px] text-base/5 text-left font-normal'>
         {product.title}
       </h4>
-      <p className='text-left mb-1 text-[16px]'>{product.price} ₴</p>
+      <p className='text-left mb-1 text-[16px]'>${product.price}</p>
       <p className='text-left mb-3 text-[14px] text-gray-400'>
         {product.category}
       </p>

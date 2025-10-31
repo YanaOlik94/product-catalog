@@ -13,7 +13,7 @@ import {
   CategoryFilter,
   PriceFilter,
   SortBy,
-} from '@/types/product.type';
+} from '@/app/types/product.type';
 
 type Props = {
   className?: string;
@@ -54,9 +54,7 @@ export const Filters: FC<Props> = ({ className }): JSX.Element => {
   };
 
   return (
-    <div
-      className={`p-6 h-fit border border-[var(--text-gray)] w-full max-w-[300px] space-y-4 ${className}`}
-    >
+    <div className='col-span-1 p-6 h-fit border border-[var(--text-gray)] space-y-4'>
       {/* Пошук */}
       <div>
         <label className='block mb-1 font-semibold'>Пошук</label>
@@ -139,7 +137,10 @@ export const Filters: FC<Props> = ({ className }): JSX.Element => {
       </div>
 
       {/* Скинути фільтри */}
-      <button onClick={() => dispatch(resetFilters())} className='btn add-btn mt-4'>
+      <button
+        onClick={() => dispatch(resetFilters())}
+        className='btn add-btn mt-4'
+      >
         Скинути фільтри
       </button>
     </div>

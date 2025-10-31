@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { useHttp } from '../../hooks/http';
-import { Product } from '@/types/product.type';
+import { Product } from '@/app/types/product.type';
 
 interface ProductsState {
   products: Product[];

@@ -9,11 +9,13 @@ import {
 } from './ProductCartSlice';
 import { RootState } from '@/app/store';
 import Image from 'next/image';
+import { Breadcrumbs } from '../breadcrumbs/Breadcrumbs';
 
 
 export const ProductCart: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+
 
   // Підрахунок загальної суми
   const total = cartItems.reduce(
@@ -30,31 +32,33 @@ export const ProductCart: React.FC = () => {
   }
 
   return (
-    <div className='max-w-5xl mx-auto p-8'>
-      <h1 className='text-3xl font-bold mb-8'>Ваш кошик</h1>
+    <div className='max-w-5xl mx-auto pt-[130px] pr-5 pl-5 pb-10'>
+      <Breadcrumbs title='Корзина' />
 
       <div className='flex flex-col gap-6'>
         {cartItems.map(({ id, product, quantity }) => (
           <div
             key={id}
-            className='flex items-center justify-between bg-white shadow rounded-2xl p-4'
+            className='flex items-center justify-between flex-col gap-3 sm:flex-row border border-[var(--text-gray)] -2xl p-4'
           >
-            <div className='flex items-center gap-4'>
-                <Image
-                  src={product.image}
-                  alt='Picture of the author'
-                  width={100}
-                  height={100}
-                  />
+            <div className='flex items-center justify-start gap-4'>
+              <Image
+                src={product.image}
+                alt='Picture of the author'
+                width={100}
+                height={100}
+              />
               <div>
-                <h2 className='text-lg font-semibold'>{product.title}</h2>
+                <h2 className='xl:text-lg lg:text-lg md:text-lg sm:text-sm font-semibold'>
+                  {product.title}
+                </h2>
                 <p className='text-gray-600 text-sm'>Ціна: ${product.price}</p>
               </div>
             </div>
 
             <div className='flex items-center gap-6'>
               {/* Зміна кількості */}
-              <div className='flex items-center gap-2 border rounded-lg px-2 py-1'>
+              <div className='flex items-center gap-2 border border-[var(--text-gray)] -lg px-2 py-1'>
                 <button
                   onClick={() =>
                     dispatch(
@@ -83,9 +87,9 @@ export const ProductCart: React.FC = () => {
               {/* Дії з товаром */}
               <button
                 onClick={() => dispatch(removeFromCart(id))}
-                className='text-red-500 hover:text-red-700 font-medium'
+                className='text-gray-500 hover:text-black-700 font-medium'
               >
-                Видалити
+                X
               </button>
             </div>
           </div>
@@ -102,11 +106,12 @@ export const ProductCart: React.FC = () => {
 
         <div className='text-right'>
           <p className='text-xl font-semibold mb-3'>
-            Всього: <span className='text-green-600'>${total.toFixed(2)}</span>
+            Всього:{' '}
+            <span className='text-2xl font-semibol text-black font-bold'>
+              ${total.toFixed(2)}
+            </span>
           </p>
-          <button className='bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700'>
-            Перейти до оплати
-          </button>
+          <button className='btn add-btn mt-5'>Перейти до оплати</button>
         </div>
       </div>
     </div>

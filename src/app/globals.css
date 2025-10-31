@@ -25,6 +25,8 @@
 button, a { cursor: pointer;}
 input:focus { border-color: #313237; outline: nonel;}
 
+
+.swiper { padding: 12px!important;}
 .btn {
     font-weight: 600;
     font-size: 14px;
@@ -65,3 +67,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.pagination-item {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--text-gray) ;
+  color: black;
+  box-sizing: border-box;
+}
+
+.pagination-item--active {  
+  background-color: #000;
+  color: #fff;}
+
+.pagination-arrow:disabled {
+    border-color: #e2e6e9;
+    opacity: 0.5;
+  }

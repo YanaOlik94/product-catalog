@@ -1,16 +1,17 @@
 'use client';
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductItem } from '../product-item/ProductItem';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchProducts } from '@/app/components/product-list/productsSlice';
 import { RootState } from '@/app/store'; 
 import { useEffect, useRef } from 'react';
 import Spinner from '../spinner/spinner';
 import 'swiper/css';
-import { Product } from '@/types/product.type';
+import { Product } from '@/app/types/product.type';
 import { Navigation } from 'swiper/modules';
 import { SliderButtons } from '../buttons';
+import { useAppDispatch } from '@/app/hooks/hooks';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -19,13 +20,14 @@ type Props = {
 };
 
 export const ProductSlider: React.FC<Props> = ({ product }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const products = useSelector((state: RootState) => state.products.products);
   const productsLoadingStatus = useSelector(
     (state: RootState) => state.products.productsLoadingStatus
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const swiperRef = useRef<any>(null);
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 import { SearchLink } from '../search-link/SearchLink';
@@ -49,14 +51,10 @@ export const Pagination: React.FC<Props> = ({
     return Math.min(allPagesCount, to);
   }
 
-
   const fromPage = getFromPage();
   const toPage = getToPage();
 
-  const currentPageNumbers = getNumbers(
-    fromPage,
-    toPage,
-  );
+  const currentPageNumbers = getNumbers(fromPage, toPage);
 
   return (
     <div className='xl:col-span-4 lg:col-span-4 md:col-span-3  sm:col-span-1 w-full flex justify-center gap-3 mt-7'>
@@ -72,7 +70,7 @@ export const Pagination: React.FC<Props> = ({
 
       {currentPage > 3 && (
         <>
-          <SearchLink params={{ page: '1' }} className=''>
+          <SearchLink params={{ page: '1' }}>
             <button className='border-1 h' type='button'>
               1
             </button>

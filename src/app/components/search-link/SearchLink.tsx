@@ -7,6 +7,7 @@ import { SearchParams, getSearchWith } from '@/app/helpers/searchHelpers';
 
 type Props = Omit<LinkProps, 'href'> & {
   params: SearchParams;
+  children: React.ReactNode;
 };
 
 export const SearchLink: React.FC<Props> = ({ children, params, ...props }) => {

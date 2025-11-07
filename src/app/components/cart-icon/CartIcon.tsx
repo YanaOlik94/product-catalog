@@ -16,7 +16,9 @@ export const CartIcon = () => {
     setIsClient(true);
   }, []);
 
+  
   const totalCount = cartItems.reduce(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (sum: number, item: any) => sum + item.quantity,
     0
   );

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PriceFilter, CategoryFilter, SortBy } from '@/types/product.type';
+import { PriceFilter, CategoryFilter, SortBy } from '@/app/types/product.type';
 
 
 interface FiltersState {

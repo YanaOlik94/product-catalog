@@ -4,7 +4,8 @@ import filters from '../components/filters/filtersSlice';
 import product from '../components/product-detail/productSlice';
 import cart from '@/app/components/product-cart/ProductCartSlice';
 
-const stringMiddleware = () => (next) => (action) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stringMiddleware = () => (next: (arg0: { type: string; }) => any) => (action: any) => {
   if (typeof action === 'string') {
 
     return next({

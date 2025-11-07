@@ -1,5 +1,5 @@
 
-export const enum CategoryEnum {
+export enum CategoryEnum {
   MensClothing = 'men\'s clothing',
   WomensClothing = 'women\'s clothing',
   Jewelery = 'jewelery',

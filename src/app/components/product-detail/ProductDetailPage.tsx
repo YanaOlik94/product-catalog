@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useParams } from 'next/navigation'; 
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { fetchProductById } from '@/app/components/product-detail/productSlice';
 import { RootState } from '@/app/store';
 import Image from 'next/image';
@@ -10,20 +9,21 @@ import Spinner from '@/app/components/spinner/spinner';
 import { AddToCartButton } from '../buttons';
 import { ProductSlider } from '../product-slider/ProductSlider';
 import { Breadcrumbs } from '../breadcrumbs/Breadcrumbs';
-
-export const ProductDetailPage = () => {
-
-  const params = useParams();
-  const productId = Array.isArray(params?.id)
-    ? params.id[0]
-    : params?.id;
+import { useAppDispatch } from '@/app/hooks/hooks';
 
 
-  const dispatch = useDispatch();
+interface ProductDetailPageProps {
+  productId: number;
+}
 
-  const loading = useSelector((state: RootState) => state.product.productLoadingStatus );
+export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ productId }) => {
+
+  const dispatch = useAppDispatch();
+
+  const loading = useSelector(
+    (state: RootState) => state.product.productLoadingStatus
+  );
   const product = useSelector((state: RootState) => state.product.product);
-
 
   useEffect(() => {
     if (productId) {

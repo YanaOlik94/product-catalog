@@ -1,26 +1,28 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ProductItem } from '../product-item/ProductItem';
-import { Product } from '@/app/types/product.type';
+import { CategoryFilter, Product } from '@/app/types/product.type';
 import { CSSTransition } from 'react-transition-group';
 import Spinner from '@/app/components/spinner/spinner';
 import { fetchProducts } from '@/app/components/product-list/productsSlice';
 import { RootState } from '@/app/store';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAppDispatch } from '@/app/hooks/hooks';
 
-export const ProductList: React.FC = () => {
-  const dispatch = useDispatch();
+type ProductListProps = {
+  page: number;
+  perPage: number;
+};
+
+export const ProductList: React.FC<ProductListProps> = ({ page, perPage }) => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const categoryParam = searchParams.get('category');
-  const pageParam = searchParams.get('page');
-
   const [categoryFromUrl, setCategoryFromUrl] = useState<string | null>(null);
-  const currentPage = Number(pageParam) || 1;
-  const perPage = 10; // ← кількість товарів на сторінці
 
   const products = useSelector((state: RootState) => state.products.products);
   const productsLoadingStatus = useSelector(
@@ -36,23 +38,18 @@ export const ProductList: React.FC = () => {
     // eslint-disable-next-line
   }, []);
 
-  // Зчитуємо категорію з URL
   useEffect(() => {
-    if (categoryParam) {
-      setCategoryFromUrl(decodeURIComponent(categoryParam));
-    } else {
-      setCategoryFromUrl(null);
-    }
+    setCategoryFromUrl(
+      categoryParam ? decodeURIComponent(categoryParam) : null
+    );
   }, [categoryParam]);
 
-  // Якщо користувач змінює фільтри — прибираємо category із URL
   useEffect(() => {
     if (
       categoryFromUrl &&
       (chosenCategories.length > 0 || searchQuery || priceFilter)
     ) {
-      const newUrl = window.location.pathname;
-      router.replace(newUrl);
+      router.replace(window.location.pathname);
       setCategoryFromUrl(null);
     }
   }, [chosenCategories, searchQuery, priceFilter, categoryFromUrl, router]);
@@ -61,7 +58,7 @@ export const ProductList: React.FC = () => {
     return <Spinner />;
   }
 
-  //  Фільтрація + сортування
+  // фільтри + сортування
   const filteredProducts = products
     .filter((product: Product) =>
       product.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -74,7 +71,7 @@ export const ProductList: React.FC = () => {
       if (!chosenCategories.length || chosenCategories.includes('all'))
         return true;
 
-      return chosenCategories.includes(product.category);
+      return chosenCategories.includes(product.category as CategoryFilter);
     })
     .filter((product: Product) => {
       if (!priceFilter) return true;
@@ -87,8 +84,8 @@ export const ProductList: React.FC = () => {
       return a.title.localeCompare(b.title);
     });
 
-  // пагінація — беремо лише ті продукти, що відповідають сторінці
-  const start = (currentPage - 1) * perPage;
+  // пагінація
+  const start = (page - 1) * perPage;
   const end = start + perPage;
   const paginatedProducts = filteredProducts.slice(start, end);
 
@@ -111,7 +108,7 @@ export const ProductList: React.FC = () => {
   return (
     <div className='xl:col-span-3 lg:col-span-3 md:col-span-2 sm:col-span-1'>
       <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6'>
-        {renderProductsList(paginatedProducts)}
+            {renderProductsList(paginatedProducts)}
       </div>
     </div>
   );

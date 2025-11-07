@@ -1,6 +1,8 @@
+'use client';
+
 import React, { FC, JSX } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/app/store'; 
+import { RootState } from '@/app/store';
 import {
   setSearchQuery,
   setChosenCategories,
@@ -26,13 +28,16 @@ const priceOptions: PriceFilter[] = [
   { min: 400, max: null },
 ];
 
-export const Filters: FC<Props> = ({ className }): JSX.Element => {
+export const Filters: FC<Props> = (): JSX.Element => {
   const dispatch = useDispatch();
   const { searchQuery, chosenCategories, priceFilter, sortBy } = useSelector(
     (state: RootState) => state.filters
   );
 
-  const categories = Object.values(CategoryEnum) as string[];
+  const categories = [
+    'all',
+    ...Object.values(CategoryEnum),
+  ] as CategoryFilter[];
 
   const toggleCategory = (category: CategoryFilter) => {
     if (category === 'all') {

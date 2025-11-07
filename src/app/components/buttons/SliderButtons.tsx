@@ -7,7 +7,6 @@ type Props = {
   nextPage: () => void;
 };
 
-/* eslint-disable */
 
 export const SliderButtons: React.FC<Props> = ({
    prevPage, nextPage,

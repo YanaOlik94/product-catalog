@@ -1,10 +1,13 @@
 'use client';
+import { Suspense } from 'react';
 import { Catalog } from './components/catalog/Catalog';
 
 export default function Home() {
   return (
     <main>
-      <Catalog />
+      <Suspense>
+        <Catalog />
+      </Suspense>
     </main>
   );
 }
